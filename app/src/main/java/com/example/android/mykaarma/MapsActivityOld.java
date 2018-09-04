@@ -8,8 +8,8 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,11 +39,11 @@ import com.google.android.gms.tasks.Task;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class MapsActivity extends FragmentActivity  implements OnMapReadyCallback {
+public class MapsActivityOld extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private LocationRequest mLocationRequest;
-    private static final String TAG = MapsActivity.class.getSimpleName();
+    private static final String TAG = MapsActivityOld.class.getSimpleName();
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     GeoDataClient mGeoDataClient;
@@ -78,7 +78,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
         // Construct a PlaceDetectionClient.
         mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
         // Construct a FusedLocationProviderClient.
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationProviderClient = getFusedLocationProviderClient(this);
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -162,14 +162,15 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
             return;
         }
         getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
                         // do work here
+                        Log.d("long",locationResult.getLastLocation().getLatitude()+"");
                         onLocationChanged(locationResult.getLastLocation());
                     }
                 },
@@ -185,6 +186,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         // You can now create a LatLng Object for use with maps
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        Log.d("long",latLng.longitude+"");
     }
 
 //    @Override
@@ -231,7 +233,9 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
+
                             mLastKnownLocation = task.getResult();
+                            if (mLastKnownLocation!=null)
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
