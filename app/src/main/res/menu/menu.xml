@@ -8,9 +8,6 @@
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView" />
 
-    <item android:id="@+id/distance"
-        android:title="Near me"
-        app:showAsAction="collapseActionView"/>
     <item
         android:id="@+id/option_get_place"
         android:title="get place"
