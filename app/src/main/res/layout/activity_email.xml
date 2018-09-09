@@ -33,21 +33,48 @@
                 android:layout_margin="10dp"
                 />
 
-            <EditText
-                android:id="@+id/subject"
-                android:maxLines="1"
-                android:background="@drawable/textborder"
+            <LinearLayout
+                android:layout_margin="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Subject"
-                android:padding="15dp"
-                android:textSize="17.0dp"
-                android:layout_margin="10dp"
-                />
+                android:orientation="horizontal"
+                android:background="@drawable/textborder"
+                >
+                <EditText
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:id="@+id/subject"
+                    android:maxLines="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="Subject"
+                    android:padding="15dp"
+                    android:textSize="17.0dp"
+                    android:layout_margin="10dp"
+                    />
+                <ImageButton
+                    android:id="@+id/subject_voice_input"
+                    android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_mic_24px"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_margin="15dp"
+                android:background="@drawable/textborder"
+                android:layout_height="match_parent">
+
+
 
             <EditText
                 android:id="@+id/message"
                 android:layout_weight="3"
+                android:background="@android:color/transparent"
                 android:maxLines="5"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -56,8 +83,51 @@
                 android:gravity="top"
                 android:padding="15dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/textborder"
+
                 />
+
+                <View
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#adabab"
+                    android:layout_width="match_parent"
+                    android:layout_height="3.0dp">
+
+                </View>
+
+                <LinearLayout
+                    android:layout_margin="5dp"
+                    android:background="@drawable/textborder"
+                    android:padding="5dp"
+                    android:orientation="horizontal"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <TextView
+                        android:gravity="center"
+                        android:layout_weight="0.9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Translate To: "
+                        android:textSize="17dp"
+                        />
+                    <Spinner
+                        android:id="@+id/select_language"
+                        android:layout_weight="0.7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></Spinner>
+                    <ImageButton
+                        android:id="@+id/message_voice_input"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_mic_24px"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/send"

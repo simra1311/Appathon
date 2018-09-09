@@ -43,13 +43,14 @@
 
         </activity>
         <activity android:name=".activities.Signup" />
-        <activity android:name=".activities.Profile" >
+        <activity android:name=".activities.Profile"></activity>
 
-        </activity>/
         <activity android:name=".activities.Email">
+
+        </activity>
+        <activity android:name=".activities.MyMails">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
