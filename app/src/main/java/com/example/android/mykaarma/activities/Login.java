@@ -22,7 +22,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * This class authenticate user to access the maps by authenticating user
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ */
 public class Login extends AppCompatActivity {
 
 
@@ -75,6 +80,10 @@ public class Login extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks valid entries in login form
+     * @return true if all fields are valid else false
+     */
     boolean loginFormValidation(){
 
          boolean isValid = true;
@@ -98,6 +107,10 @@ public class Login extends AppCompatActivity {
         return isValid;
     }
 
+    /**
+     * Saves user data if login successful and set login true for login in future
+     * Move to maps after login completion
+     */
     void proceedlogin(){
 
         String url = getResources().getString(R.string.domain)+"authentication.php";

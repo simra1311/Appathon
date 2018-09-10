@@ -39,6 +39,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * This activity is for creating emails in different language
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ */
 public class Email extends AppCompatActivity {
 
     private android.widget.TextView receiverEmail;
@@ -167,8 +173,10 @@ public class Email extends AppCompatActivity {
     }
 
 
-//   Validity
-
+    /**
+     * Check for all input field validity
+     * @return true if all fields are valid else false
+     */
     boolean validityCheck(){
 
         boolean isValid = true;
@@ -184,7 +192,9 @@ public class Email extends AppCompatActivity {
         return isValid;
     }
 
-// Voice Input
+    /**
+     * Create Speech recognition intent for voice input in SUBJECT field of mail
+     */
     void getSubjectSpeechInput() {
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -199,6 +209,9 @@ public class Email extends AppCompatActivity {
         }
     }
 
+    /**
+     * Create Speech recognition intent for voice input in MESSAGE field of mail
+     */
     void getMessageSpeechInput() {
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -247,9 +260,12 @@ public class Email extends AppCompatActivity {
         }
     }
 
-
-//    Language and translation
-
+    /**
+     * This fuction maps the input language selection by user in UI to Locale.language
+     *
+     * @param language language selected by user
+     * @return Locale class integer id
+     */
     public Locale getLocale(String language) {
         Locale local = Locale.ENGLISH;
         if (language.equals("French"))
@@ -265,7 +281,11 @@ public class Email extends AppCompatActivity {
         return local;
     }
 
-
+    /**
+     * Translates the input String in subject and message field from
+     * source language to destination language
+     * and reset them
+     */
     void translateTo(){
         String msg = message.getText().toString();
 
@@ -330,7 +350,11 @@ public class Email extends AppCompatActivity {
     }
 
 
-//    Send Mail
+    /**
+     * Sends mail through the server to receiver
+     *
+     * Creates an Http request for sending mails
+     */
 
     void sendEmail(){
 

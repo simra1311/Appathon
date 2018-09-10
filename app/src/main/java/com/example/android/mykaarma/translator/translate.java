@@ -17,12 +17,28 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.util.Locale;
 
+/**
+ * This class translates the input string from one language to other
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ */
+
 public class translate {
 
     private Context context;
     private String query,langpair, url, word;
     private int position;
 
+    /**
+     * Params required for translation
+     *
+     * @param context is the activity context
+     * @param word is the string to be translated
+     * @param srcLanguage is the source language or initial language
+     * @param dstLanguage is the destination or final language
+     * @param position is the position of string in string array , used to create string again with each word placed in proper order
+     */
     public translate(Context context, String word, Locale srcLanguage, Locale dstLanguage, int position) {
         this.context = context;
         this.word = word;
@@ -39,16 +55,14 @@ public class translate {
     }
 
 
-
-
+    /**
+     * Begins the translation and initialise responsedata interface with translated response
+     * @param resp interface to be initialised with translated word
+     */
     public void starttranslation(final responsedata resp) {
 
-        Log.d("Language Url : ",url);
+//        Log.d("Language Url : ",url);
         try {
-
-//            String query = URLEncoder.encode(word, "UTF-8");
-//            String langpair = URLEncoder.encode(srcLanguage.getLanguage() + "|" + dstLanguage.getLanguage(), "UTF-8");
-//            String url = "http://mymemory.translated.net/api/get?q=" + query + "&langpair=" + langpair;
 
 
             RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -62,7 +76,7 @@ public class translate {
 
 
                         if (response.getInt("responseStatus") == 200) {
-                            Log.d("Translation Respose",translation.getString("translatedText"));
+//                            Log.d("Translation Respose",translation.getString("translatedText"));
 
                             resp.response(translation.getString("translatedText") + " ", position);
                         } else {

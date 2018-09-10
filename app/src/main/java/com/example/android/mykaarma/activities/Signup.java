@@ -23,6 +23,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This is a Signup Activity class creted for new user sign in
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ */
 public class Signup extends AppCompatActivity {
 
     private android.support.design.widget.TextInputEditText firstname;
@@ -58,6 +64,10 @@ public class Signup extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Call the server for adding new user information
+     */
     void signup(){
 
         String url = getResources().getString(R.string.domain)+"signup.php";
@@ -109,6 +119,11 @@ public class Signup extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks for the validity of all input fields before adding new user
+     *
+     * @return true if all input fields are valid else false
+     */
     boolean valid(){
 
         boolean isValid = true;
@@ -173,12 +188,17 @@ public class Signup extends AppCompatActivity {
         }
 
         return  isValid;
-
     }
+
 
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    /**
+     * Checks for email pattern with regular expression
+     * @param emailStr
+     * @return
+     */
     public static boolean emailvalidate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
         return matcher.find();

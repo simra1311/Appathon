@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.android.mykaarma.R;
@@ -15,14 +14,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+/**
+ * This is to create mail adapter of MyMails activity Recycler View
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ */
 public class mailAdapter extends RecyclerView.Adapter<mailAdapter.ViewHolder> {
 
     JSONArray mails;
-    String sender_id;
+    String user_id;
 
-    public mailAdapter(JSONArray mails, String sender_id) {
+    /**
+     * Paramaters required to create mail Adapter View
+     *
+     * @param mails JSONArray containing mails and its details as JSONObject
+     * @param user_id current user id used for identinfying if mail is sended or received
+     */
+    public mailAdapter(JSONArray mails, String user_id) {
         this.mails = mails;
-        this.sender_id = sender_id;
+        this.user_id = user_id;
     }
 
     @NonNull
@@ -42,7 +53,7 @@ public class mailAdapter extends RecyclerView.Adapter<mailAdapter.ViewHolder> {
 
             JSONObject data = mails.getJSONObject(position);
 
-            if(data.getString("sender_id").contentEquals(sender_id)){
+            if(data.getString("sender_id").contentEquals(user_id)){
 
                 holder.mailType.setText("Sent");
                 holder.email.setText(data.getString("sender_email"));

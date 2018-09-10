@@ -16,6 +16,14 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+/**
+ * This class is used to fetch data from the server using volley by creating String request
+ * and returning JsonObject response
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ *
+ */
 public class fetch {
 
     private  String url;
@@ -30,6 +38,12 @@ public class fetch {
 
     }
 
+    /**
+     * This function is called for starting the fetch process and initialise response
+     * interface with response (JSON) data
+     *
+     * @param resp
+     */
     public void startfetch(final responsedata resp){
 
 

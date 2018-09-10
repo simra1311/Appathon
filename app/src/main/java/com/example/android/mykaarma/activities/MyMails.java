@@ -19,6 +19,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This activity class get current user emails and displays them in list ( Recycler View )
+ *
+ * @author Vinod Kumar
+ * @version 1.0
+ */
 public class MyMails extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -32,11 +38,8 @@ public class MyMails extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -65,7 +68,7 @@ public class MyMails extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("Response data",data.toString());
+//                Log.d("Response data",data.toString());
             }
         });
 
