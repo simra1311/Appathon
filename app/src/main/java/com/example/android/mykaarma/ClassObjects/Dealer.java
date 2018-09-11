@@ -14,14 +14,16 @@ import java.util.Locale;
 
 public class Dealer implements Serializable{
     public  String ID;
-    public  String address,email,dealeruserID;
+    public  String address,email,dealeruserID,priceInINR,rating;
     public static LatLng latLng;
 
-    public Dealer(String ID, String email, String dealeruserID, LatLng latLng) {
+    public Dealer(String ID, String email, String dealeruserID,String priceInINR,String rating, LatLng latLng) {
         this.ID = ID;
         this.email = email;
         Dealer.latLng = latLng;
         this.dealeruserID = dealeruserID;
+        this.priceInINR = priceInINR;
+        this.rating = rating;
     }
 
 //    public Dealer(int id){

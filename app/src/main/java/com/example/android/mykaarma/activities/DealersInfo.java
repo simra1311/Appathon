@@ -3,9 +3,9 @@ package com.example.android.mykaarma.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.android.mykaarma.ClassObjects.Dealer;
 import com.example.android.mykaarma.R;
@@ -32,18 +32,9 @@ public class DealersInfo extends AppCompatActivity {
         email = findViewById(R.id.email);
         mailid = findViewById(R.id.emailadd);
 
-//        getSupportActionBar().hide();
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
+//        setSupportActionBar(toolbar);
+        setActionBar(toolbar);
 
         Bundle bundle = intent.getExtras();
         final Dealer dealer = (Dealer) Objects.requireNonNull(bundle).getSerializable("Dealer");

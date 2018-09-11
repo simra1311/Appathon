@@ -51,7 +51,7 @@
         <activity android:name=".activities.Signup"
             android:label="Sign Up" android:parentActivityName=".activities.Login" android:theme="@style/AppTheme"/>
 
-        <activity android:name=".activities.Email" android:theme="@style/AppTheme"
+        <activity android:name=".activities.Email" android:theme="@style/mainActivity"
             android:label="Email" android:parentActivityName=".activities.DealersInfo">
 
         </activity>

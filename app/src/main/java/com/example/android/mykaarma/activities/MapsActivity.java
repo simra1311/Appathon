@@ -58,8 +58,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static java.lang.Math.pow;
-
 /**
  * This activity is for searching and displaying user address, finding nearby dealers', setting up constraints and filters
  * @author Simra Afreen
@@ -189,12 +187,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void FetchData(Boolean flag) {
         final String url = getResources().getString(R.string.domain) + "search.php";
          distance = distanceQuery;
+
         if (!flag && distanceQuery.compareTo("Select")==0) distance = 30000+"";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (!Objects.equals(priceQuery, "")) price = priceQuery;
         }
+
         if (priceQuery.compareTo("Select")==0) price = "10000000";
         if (!Objects.equals(searchResult, "")) make = searchResult;
+
         Map<String, String> params = new HashMap<>();
         params.put("make", make);
         params.put("distance", distance);
@@ -217,7 +218,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                Toast.makeText(MapsActivity.this,url,Toast.LENGTH_SHORT).show();
             }
         });
         if (!NetworkConnection.isConnected(MapsActivity.this)){
@@ -230,32 +230,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param jsonArray
      */
     private void ParseFunction(JSONArray jsonArray) {
-        dealerArrayList.clear();
+        dealerArrayList.clear();        //clear the current list
+
         for (int i=0;i<jsonArray.length();i++){
             try {
+                double lat,lon;
                 final JSONObject data = jsonArray.getJSONObject(i);
                 final String ID = data.getString("DealerName");
                 final String email = data.getString("DealerEmail");
                 final String dealerID = data.getString("DealerID");
-                //TODO
+                final String PriceInINR = data.getString("PriceInINR");
                 final String DealerAvgRatingOutOf5 = data.getString("DealerAvgRatingOutOf5");
-                double lat,lon;
+
                 lon = Double.parseDouble(data.getString("DealerLongitude"));
                 lat = Double.parseDouble(data.getString("DealerLatitude"));
-                final Dealer dealer = new Dealer(ID,email,dealerID,new LatLng(lat,lon));
+
+                final Dealer dealer = new Dealer(ID,email,dealerID,PriceInINR,DealerAvgRatingOutOf5,new LatLng(lat,lon));
                 dealer.ID = ID;
-                Log.d("id",dealer.ID+"");
+
                 dealerArrayList.add(dealer);
-//                Log.d("sizeadap",listAdapter.getCount()+"");
-//                listAdapter.notifyDataSetChanged();
                 listAdapter = new ListAdapter(dealerArrayList,this,this);
                 listView.setAdapter(listAdapter);
+                //get the dealer address from LatLng
                 String add = dealer.getAddress(MapsActivity.this,lat,lon);
                 if (add.substring(0,4).equals("null")){
                     add = "Not found" + add.substring(4);
+                    Log.d("address",add);
                 }
                 dealer.address = add;
-                mMap.addMarker(new MarkerOptions().title(ID+","+email+","+dealerID).position(new LatLng(lat,lon)));
+
+                mMap.addMarker(new MarkerOptions().title(ID+","+email+","+dealerID+","+DealerAvgRatingOutOf5+","+PriceInINR).position(new LatLng(lat,lon)));
                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
@@ -265,10 +269,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             String id = res[0];
                             String Email = res[1];
                             String dealeruserID = res[2];
-                            Log.d("idmail", id + ", " + Email);
+                            String rating = res[3];
+                            String price = res[4];
+
                             LatLng latLng = marker.getPosition();
-                            Dealer dealer = new Dealer(id,Email,dealeruserID, latLng);
+                            Dealer dealer = new Dealer(id,Email,dealeruserID,price,rating, latLng);
                             dealer.address = dealer.getAddress(MapsActivity.this, latLng.latitude, latLng.longitude);
+
                             Intent intent = new Intent(MapsActivity.this, DealersInfo.class);
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("Dealer", dealer);
@@ -296,18 +303,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void CallAPI() {
 
         String url = getApplicationContext().getString(R.string.domain) + "signup.php";
-        Log.d("responsedata", url);
+//        Log.d("responsedata", url);
+
         Map<String, String> params = new HashMap<>();
         params.put("fname", "Vinodk");
         params.put("lname", "Kumark");
         params.put("email", "abcd@gmail.com");
         params.put("phone", "8300840829");
         params.put("pass", "123456");
+
         new fetch(url, params, getApplicationContext()).startfetch(new responsedata() {
             @Override
             public void response(JSONObject data) {
-                Log.d("Responsedata1911", data.toString());
-//                parsejson(data);
+//                Log.d("Responsedata1911", data.toString());
             }
         });
 
@@ -320,9 +328,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(MapsActivity.this,searchResult,Toast.LENGTH_SHORT).show();
                 mMap.clear();
                 searchResult = searchQuery.getEditableText().toString();
+
                 mMap.addMarker(new MarkerOptions().title("current position").position(new LatLng(Double.valueOf(latitude),Double.valueOf(longitude))).draggable(true));
                 FetchData(false);
             }
@@ -331,13 +339,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Object item = parent.getItemAtPosition(position);
-//                Toast.makeText(MapsActivity.this,item.toString(),Toast.LENGTH_SHORT).show();
                 distanceQuery = item.toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-//                Toast.makeText(MapsActivity.this,"No distance filter ",Toast.LENGTH_SHORT).show();
             }
         });
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -431,25 +437,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getDeviceLocation();
         updateLocationUI();
 
-//        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-//            @Override
-//            public void onMapLoaded() {
-////                Log.e("TAG", mMap.getCameraPosition().target.toString());
-//                camera = mMap.getCameraPosition().target;
-//            }
-//        });
-//        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-//            @Override
-//            public void onCameraMove() {
-//                LatLng latLng = mMap.getCameraPosition().target;
-////                Toast.makeText(MapsActivity.this,latLng+"",Toast.LENGTH_SHORT).show();
-//                if (camera!=null) {
-//                    latitude = camera.latitude + "";
-//                    longitude = camera.longitude + "";
-//                }
-//                FetchData();
-//            }
-//        });
         map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker arg0) {
@@ -566,8 +553,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
-//        getLocationPermission();
-//        updateLocationUI();
     }
 
     /**
@@ -617,14 +602,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    Boolean InsideRadius(LatLng cur, LatLng dealerLoc, int Radius){
-        return Radius * Radius >= (pow(cur.latitude - dealerLoc.latitude, 2) + pow(cur.longitude - dealerLoc.longitude, 2));
-    }
+
     @Override
     public void onItemClick(int position) {
         Dealer dealer = dealerArrayList.get(position);
-        Log.d("position",position+"");
-//        Toast.makeText(MapsActivity.this, dealer.ID,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MapsActivity.this,DealersInfo.class);
         intent.putExtra("id",dealer.ID);
         startActivity(intent);

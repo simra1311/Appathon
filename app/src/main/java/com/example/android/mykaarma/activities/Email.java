@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.android.mykaarma.ClassObjects.Dealer;
 import com.example.android.mykaarma.R;
@@ -74,6 +75,8 @@ public class Email extends AppCompatActivity {
         this.message = (EditText) findViewById(R.id.message);
         this.subject = (EditText) findViewById(R.id.subject);
         this.receiverEmail = (TextView) findViewById(R.id.receiverEmail);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setActionBar(toolbar);
 
         mProgress = new ProgressDialog(Email.this);
         mProgress.setMessage("Please wait...");

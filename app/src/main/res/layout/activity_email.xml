@@ -6,7 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.Email"
     android:scrollbars="vertical"
-    >
+    android:orientation="vertical">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@android:color/black"
+        android:title="Email"/>
 
     <ScrollView
         android:layout_width="match_parent"

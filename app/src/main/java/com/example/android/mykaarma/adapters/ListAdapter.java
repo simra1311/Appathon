@@ -30,25 +30,6 @@ public class ListAdapter extends ArrayAdapter<Dealer> implements android.widget.
         this.listener = listener;
     }
 
-//    @NonNull
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.row_layout,parent,false);
-//        return new DealersClass(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listener.onItemClick(holder.getAdapterPosition());
-//            }
-//        });
-//        Dealer dealer = dealerArrayList.get(position);
-//        String id = dealer.ID+"";
-//    }
-
     @Override
     public int getCount() {
         return dealerArrayList.size();
@@ -69,31 +50,27 @@ public class ListAdapter extends ArrayAdapter<Dealer> implements android.widget.
             holder = new ViewHolder();
             TextView id = convertView.findViewById(R.id.name);
             TextView add = convertView.findViewById(R.id.address);
+            TextView rating = convertView.findViewById(R.id.rating);
+            TextView price = convertView.findViewById(R.id.price);
             holder.name = id;
             holder.address = add;
+            holder.rating = rating;
+            holder.price = price;
             convertView.setTag(holder);
         }
+
         holder = (ViewHolder)convertView.getTag();
         Dealer dealer = dealerArrayList.get(position);
         holder.name.setText(dealer.ID);
         holder.address.setText(dealer.address);
+        holder.price.setText(dealer.priceInINR);
+        holder.rating.setText(dealer.rating);
         return convertView;
     }
 
     public static class ViewHolder {
-        TextView name, address;
-//        View itemView;
-//        public ViewHolder() {
-////            super(itemView);
-//            name = itemView.findViewById(R.id.name);
-//            address = itemView.findViewById(R.id.address);
-//        }
+        TextView name, address,price,rating;
     }
-
-//    @Override
-//    public int getItemCount() {
-//        return dealerArrayList.size();
-//    }
 
     public interface Listener{
         void onItemClick(int position);
