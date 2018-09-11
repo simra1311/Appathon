@@ -247,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
                 searchResult = searchQuery.getEditableText().toString();
 
-                mMap.addMarker(new MarkerOptions().title("current position").position(new LatLng(Double.valueOf(latitude),Double.valueOf(longitude))).draggable(true));
+                mMap.addMarker(new MarkerOptions().title("current location").position(new LatLng(Double.valueOf(latitude),Double.valueOf(longitude))).draggable(true));
                 FetchData(false);
             }
         });

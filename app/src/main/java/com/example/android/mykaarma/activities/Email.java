@@ -391,12 +391,12 @@ public class Email extends AppCompatActivity {
                     if(data.getInt("conn_status") == 1 && data.getInt("status") == 1 && data.getInt("data") == 1){
                         Toast.makeText(getApplicationContext(),"Email Sent...", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(getApplicationContext(),"Failed...", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(),"Failed...", Toast.LENGTH_SHORT).show();
                     }
                         Log.d("Message Response", data.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"Failed...", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),"Failed...", Toast.LENGTH_SHORT).show();
                 }
             }
         });
