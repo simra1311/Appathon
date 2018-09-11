@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.android.mykaarma.R;
@@ -43,13 +41,13 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        this.signup = (Button) findViewById(R.id.signup);
-        this.confirmpassword = (TextInputEditText) findViewById(R.id.confirmpassword);
-        this.password = (TextInputEditText) findViewById(R.id.password);
-        this.phone = (TextInputEditText) findViewById(R.id.phone);
-        this.email = (TextInputEditText) findViewById(R.id.email);
-        this.lastname = (TextInputEditText) findViewById(R.id.lastname);
-        this.firstname = (TextInputEditText) findViewById(R.id.firstname);
+        this.signup = findViewById(R.id.signup);
+        this.confirmpassword = findViewById(R.id.confirmpassword);
+        this.password = findViewById(R.id.password);
+        this.phone = findViewById(R.id.phone);
+        this.email = findViewById(R.id.email);
+        this.lastname = findViewById(R.id.lastname);
+        this.firstname = findViewById(R.id.firstname);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override

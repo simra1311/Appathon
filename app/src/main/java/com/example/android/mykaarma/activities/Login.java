@@ -41,10 +41,10 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        this.signup = (TextView) findViewById(R.id.signup);
-        this.submit = (Button) findViewById(R.id.submit);
-        this.password = (TextInputEditText) findViewById(R.id.password);
-        this.contact = (TextInputEditText) findViewById(R.id.contact);
+        this.signup = findViewById(R.id.signup);
+        this.submit = findViewById(R.id.submit);
+        this.password = findViewById(R.id.password);
+        this.contact = findViewById(R.id.contact);
 
 
 //     Continue to map if user already logged in

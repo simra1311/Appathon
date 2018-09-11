@@ -3,7 +3,7 @@ package com.example.android.mykaarma.fetchdata;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,9 +26,10 @@ import java.util.Map;
  */
 public class fetch {
 
-    private  String url;
-    private Map<String,String> params;
-    private Context context;
+    private static final int MY_SOCKET_TIMEOUT_MS = 10000;
+    private final String url;
+    private final Map<String,String> params;
+    private final Context context;
 
     public fetch(String url,Map<String,String> params,Context context) {
         this.url=url;
@@ -53,7 +54,7 @@ public class fetch {
             @Override
             public void onResponse(String response) {
 
-//                Log.d("Response111",response);
+                Log.d("Response111",response);
 
                 try {
                     JSONObject data = new JSONObject(response);
@@ -69,7 +70,7 @@ public class fetch {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-//                Log.d("Response1121",error.toString());
+                Log.d("Response1121",error.toString());
                 try {
                     JSONObject jsonObject=new JSONObject();
                     jsonObject.put("data",0);
@@ -81,11 +82,15 @@ public class fetch {
             }
         }){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 return params;
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
     }
 

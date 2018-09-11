@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:text="Dealers near me"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="16000dp"
+                android:id="@+id/list"
+                android:padding="5dp"
+                android:fadeScrollbars="false"
+                android:layout_margin="20dp"/>
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@android:color/background_dark"-->
+                <!--android:id="@+id/recyclerView"-->
+                <!--android:orientation="vertical"-->
+                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+            <!--</android.support.v7.widget.RecyclerView>-->
+        </LinearLayout>
+
+</LinearLayout>

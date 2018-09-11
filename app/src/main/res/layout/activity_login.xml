@@ -125,7 +125,7 @@
                                 android:textColor="@android:color/holo_blue_dark"
                                 android:textStyle="bold"
                                 android:text=" Sing Up"
-                                />
+                                android:focusable="true" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
