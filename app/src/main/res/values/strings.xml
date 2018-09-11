@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyKaarma</string>
+    <string name="app_name">Car Wale</string>
     <string name="title_activity_maps">Map</string>
     <!--<string name="domain">http://192.168.83.56/appathonApi/</string>-->
     <string name="domain">https://www.promotionknowledge.com/appathonApi/</string>

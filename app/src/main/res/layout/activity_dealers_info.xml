@@ -131,6 +131,7 @@
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_dialog_email"
         android:layout_gravity="end"
+        android:layout_margin="10dp"
         android:elevation="20dp"
         fab:fab_label="Menu item 1" />
 

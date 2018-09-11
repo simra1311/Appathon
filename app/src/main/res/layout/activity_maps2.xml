@@ -36,6 +36,7 @@
                 android:hint="Make: Honda/Toyota/Hyundai"
                 android:id="@+id/make"
                 android:singleLine="true"
+                android:inputType="textCapSentences"
                 android:textSize="15dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="8dp"
