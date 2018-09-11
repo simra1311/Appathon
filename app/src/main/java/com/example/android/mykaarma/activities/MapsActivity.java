@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,13 +66,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static GoogleMap mMap;
     private String make="", distance="30000", latitude="28.570606", longitude="77.017375",price="500000";
     String searchResult="", distanceQuery="30000",priceQuery="10000000";
-    private Button searchButton;
+    private ImageButton searchButton;
     private Spinner spinner,spinner1;
     EditText searchQuery;
     private ArrayList<Dealer> dealerArrayList;
     private ListAdapter listAdapter;
     private ListView listView;
     ImageButton button;
+    private NestedScrollView bottom_sheet;
+
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
@@ -79,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
     private Location mLastKnownLocation;
+
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
@@ -107,11 +111,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         listView = findViewById(R.id.list);
         dealerArrayList = new ArrayList<>();
 
+        bottom_sheet = findViewById(R.id.bottom_sheet);
+
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         setButtons();
         FetchData(false);
+
     }
 
     /**
