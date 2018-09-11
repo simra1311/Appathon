@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "855351145952",
+    "firebase_url": "https://mykaarma-45eff.firebaseio.com",
+    "project_id": "mykaarma-45eff",
+    "storage_bucket": "mykaarma-45eff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855351145952:android:ff2a94113f8fcba3",
+        "android_client_info": {
+          "package_name": "com.example.android.mykaarma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855351145952-bkke3hjo8rm8pkhvpelhcf672cld7dft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.mykaarma",
+            "certificate_hash": "eea0e3ad6808507e8f41c8ce528f92d80df34995"
+          }
+        },
+        {
+          "client_id": "855351145952-00dv09eoo2prk99dnha8dlbmm60rh5n6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcgFLR3550CBELHhlJnCLeuaOxV5lG6JQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855351145952-00dv09eoo2prk99dnha8dlbmm60rh5n6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

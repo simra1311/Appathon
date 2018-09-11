@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="prices_array" >
+        <item>Select</item>
+        <item>2000000</item>
+        <item>5000000</item>
+    </string-array>
+    <string-array name="make">
+    </string-array>
+</resources>

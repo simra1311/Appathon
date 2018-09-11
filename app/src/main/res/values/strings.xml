@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyKaarma</string>
+    <string name="title_activity_maps">Map</string>
+    <!--<string name="domain">http://192.168.83.56/appathonApi/</string>-->
+    <string name="domain">https://www.promotionknowledge.com/appathonApi/</string>
+    <string-array name="distances_array">
+        <item>Select</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2500</item>
+        <item>3000</item>
+        <item>50000</item>
+        <item>2003600</item>
+    </string-array>
+</resources>
