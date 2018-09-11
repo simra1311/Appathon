@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_marginTop="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+   <LinearLayout
+       android:padding="15dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       >
+       <TextView
+           android:id="@+id/mailType"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Sent"
+           android:textSize="17dp"
+           android:layout_marginBottom="5dp"
+           />
+       <TextView
+           android:id="@+id/email"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="sender@gmail.com"
+           android:textSize="17dp"
+           android:textStyle="bold"
+           />
+       <TextView
+           android:id="@+id/subject"
+           android:layout_marginTop="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Subject"
+           android:textSize="15dp"
+           android:minLines="3"
+           android:ellipsize="end"
+           />
+
+   </LinearLayout>
+
+</android.support.v7.widget.CardView>
