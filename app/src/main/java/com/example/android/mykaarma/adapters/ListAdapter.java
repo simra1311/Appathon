@@ -20,14 +20,12 @@ import java.util.ArrayList;
 public class ListAdapter extends ArrayAdapter<Dealer> implements android.widget.ListAdapter {
 
     private ArrayList<Dealer> dealerArrayList;
-    private Listener listener;
     private Context mContext;
 
-    public ListAdapter(ArrayList<Dealer> dealerArrayList, Context context, Listener listener) {
+    public ListAdapter(ArrayList<Dealer> dealerArrayList, Context context) {
         super(context,0);
         this.dealerArrayList = dealerArrayList;
         this.mContext = context;
-        this.listener = listener;
     }
 
     @Override
@@ -72,7 +70,4 @@ public class ListAdapter extends ArrayAdapter<Dealer> implements android.widget.
         TextView name, address,price,rating;
     }
 
-    public interface Listener{
-        void onItemClick(int position);
-    }
 }

@@ -7,13 +7,9 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatCallback;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +37,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -64,14 +59,10 @@ import java.util.Objects;
  * @version 1.0.0
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
-        com.google.android.gms.location.LocationListener,
-        AdapterView.OnItemSelectedListener, ListAdapter.Listener,
-        AppCompatCallback {
+        com.google.android.gms.location.LocationListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private static GoogleMap mMap;
-    private CameraPosition mCameraPosition;
-    private AppCompatDelegate delegate;
     private String make="", distance="30000", latitude="28.570606", longitude="77.017375",price="500000";
     String searchResult="", distanceQuery="30000",priceQuery="10000000";
     private Button searchButton;
@@ -81,7 +72,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ListAdapter listAdapter;
     private ListView listView;
     ImageButton button;
-//    RecyclerView recyclerView;
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
@@ -96,21 +86,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        delegate = AppCompatDelegate.create(this, this);
-        delegate.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
 
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
         searchQuery = findViewById(R.id.make);
         spinner = findViewById(R.id.spinner);
 
-//        Toolbar toolbar = findViewById(R.id.toolbaar);
-//        delegate.setSupportActionBar(toolbar);
-//        mCameraPosition = CameraPosition.createFromAttributes(this,)
-//        mCameraPosition = new CameraPosition.Builder().build();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.distances_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -118,67 +101,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.prices_array, android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
+
         button =findViewById(R.id.mails);
-//        FetchMake();
         searchButton = findViewById(R.id.search_button1);
         listView = findViewById(R.id.list);
         dealerArrayList = new ArrayList<>();
-//        dealerArrayList.add(new Dealer("123",new LatLng(240.45,64.054)));
-//        dealerArrayList.add(new Dealer("123",new LatLng(240.45,64.054)));
-//        listAdapter = new ListAdapter(dealerArrayList,this,this);
-//        listView.setAdapter(listAdapter);
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         setButtons();
         FetchData(false);
-        CallAPI();
-//        Log.d("size",dealerArrayList.size()+"");
     }
-
-//    private void FetchMake() {
-//        final String url = getResources().getString(R.string.domain) + "make.php";
-//        //= ArrayAdapter.createFromResource(this, R.array.distances_array, android.R.layout.simple_spinner_item);
-//        List<String> list = Arrays.asList(getResources().getStringArray(R.array.make));
-//        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        searchQuery.setAdapter(spinnerAdapter);
-////        spinnerAdapter.add("Select");
-//        spinnerAdapter.notifyDataSetChanged();
-//
-//        Map<String, String> params = new HashMap<>();
-//        new fetch(url, params, getApplicationContext()).startfetch(new responsedata() {
-//            @Override
-//            public void response(JSONObject data) {
-//                Log.d("Responsedata1911", data.toString());
-////                parsejson(data);
-//                Log.d("responsedata",url);
-//
-//                try {
-//                    if(data.getInt("conn_status")==1 && data.getInt("data")==1){
-//                        for (int i=0;i<data.length();++i){
-//                            try {
-//                                JSONObject jsonObject = data.getJSONArray("make_list").getJSONObject(i);
-//                                String make = jsonObject.getString("Make");
-//                                spinnerAdapter.add(make);
-//                                spinnerAdapter.notifyDataSetChanged();
-//                            }
-//                            catch (JSONException e){
-//
-//                            }
-//                        }
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-////                Toast.makeText(MapsActivity.this,url,Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        if (!NetworkConnection.isConnected(MapsActivity.this)){
-//            Toast.makeText(MapsActivity.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     /**
      * This function fetches the dealers information filtered by the given parameters
@@ -207,9 +141,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         new fetch(url, params, getApplicationContext()).startfetch(new responsedata() {
             @Override
             public void response(JSONObject data) {
-                Log.d("Responsedata1911", data.toString());
-//                parsejson(data);
-                Log.d("responsedata",url);
+//                Log.d("Responsedata1911", data.toString());
+//                Log.d("responsedata",url);
 
                 try {
                     if(data.getInt("conn_status")==1 && data.getInt("data")==1){
@@ -249,7 +182,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dealer.ID = ID;
 
                 dealerArrayList.add(dealer);
-                listAdapter = new ListAdapter(dealerArrayList,this,this);
+                listAdapter = new ListAdapter(dealerArrayList,this);
                 listView.setAdapter(listAdapter);
                 //get the dealer address from LatLng
                 String add = dealer.getAddress(MapsActivity.this,lat,lon);
@@ -297,29 +230,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    /**
-     * Register new user for sign up
-     */
-    private void CallAPI() {
-
-        String url = getApplicationContext().getString(R.string.domain) + "signup.php";
-//        Log.d("responsedata", url);
-
-        Map<String, String> params = new HashMap<>();
-        params.put("fname", "Vinodk");
-        params.put("lname", "Kumark");
-        params.put("email", "abcd@gmail.com");
-        params.put("phone", "8300840829");
-        params.put("pass", "123456");
-
-        new fetch(url, params, getApplicationContext()).startfetch(new responsedata() {
-            @Override
-            public void response(JSONObject data) {
-//                Log.d("Responsedata1911", data.toString());
-            }
-        });
-
-    }
 
     /**
      * set OnClickListeners for all the spinners and search button as well as list
@@ -362,7 +272,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Dealer dealer = dealerArrayList.get(i);
-                Toast.makeText(MapsActivity.this,dealer.ID+""+dealer.address,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MapsActivity.this,DealersInfo.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Dealer",dealer);
@@ -412,7 +321,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
             Log.d(TAG, "reset pressed");
-//            Toast.makeText(MapsActivity.this, "reset", Toast.LENGTH_SHORT).show();
             mMap.clear();
             FetchData(false);
             getDeviceLocation();
@@ -593,33 +501,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(location.getLatitude(), location
                         .getLongitude()), 20));
-    }
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        Dealer dealer = dealerArrayList.get(position);
-        Intent intent = new Intent(MapsActivity.this,DealersInfo.class);
-        intent.putExtra("id",dealer.ID);
-        startActivity(intent);
-    }
-    @Override
-    public void onSupportActionModeStarted(ActionMode mode) {
-    }
-    @Override
-    public void onSupportActionModeFinished(ActionMode mode) {
-    }
-    @Nullable
-    @Override
-    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
-        return null;
     }
 
 
